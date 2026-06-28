@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>太陽の恵み みかんジャム</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange-deep: #C06000;
+    --orange-mid: #E8A020;
+    --orange-light: #FFF3D0;
+    --orange-pale: #FFF8F0;
+    --brown-dark: #5C3A00;
+    --brown-mid: #8B5E2A;
+    --brown-light: #F0D9B5;
+    --text-main: #3A2000;
+    --text-sub: #7A5020;
+    --bg: #FFFDF8;
+    --white: #ffffff;
+    --radius: 12px;
+  }
+
+  body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text-main);
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--brown-light);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { font-size: 18px; font-weight: 700; color: var(--brown-dark); letter-spacing: 0.05em; }
+  .logo span { color: var(--orange-mid); }
+  .cart-icon-btn {
+    background: var(--orange-light);
+    border: 1px solid var(--orange-mid);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: var(--brown-dark);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: inherit;
+  }
+  .cart-icon-btn:hover { background: #FFE89A; }
+  #cart-header-count {
+    background: var(--orange-mid);
+    color: white;
+    border-radius: 50%;
+    width: 20px; height: 20px;
+    font-size: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, #FFF8EC 0%, #FFE9B0 60%, #FFCF6B 100%);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+  }
+  .hero-emoji { font-size: 72px; margin-bottom: 1rem; display: block; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--white);
+    color: var(--brown-dark);
+    font-size: 12px;
+    padding: 4px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--orange-mid);
+    margin-bottom: 1rem;
+    letter-spacing: 0.08em;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 900;
+    color: var(--brown-dark);
+    letter-spacing: 0.06em;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  .hero p {
+    font-size: 15px;
+    color: var(--brown-mid);
+    max-width: 480px;
+    margin: 0 auto 2rem;
+  }
+  .hero-scroll {
+    display: inline-block;
+    color: var(--brown-mid);
+    font-size: 13px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--brown-mid);
+    padding-bottom: 2px;
+  }
+
+  /* FEATURES */
+  .features {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--brown-dark);
+    padding: 0;
+  }
+  .feature {
+    flex: 1;
+    max-width: 240px;
+    text-align: center;
+    padding: 1.25rem 1rem;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+  .feature:last-child { border-right: none; }
+  .feature-icon { font-size: 22px; margin-bottom: 6px; display: block; }
+  .feature-label { font-size: 12px; color: rgba(255,255,255,0.85); letter-spacing: 0.05em; }
+
+  /* PRODUCTS SECTION */
+  .section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+  .section-heading {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--orange-deep);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: clamp(20px, 3vw, 26px);
+    font-weight: 700;
+    color: var(--brown-dark);
+    margin-bottom: 2rem;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 3rem;
+  }
+  .product-card {
+    background: var(--white);
+    border: 1px solid var(--brown-light);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .product-card:hover {
+    border-color: var(--orange-mid);
+    box-shadow: 0 4px 20px rgba(200,120,0,0.12);
+  }
+  .product-thumb {
+    background: linear-gradient(135deg, #FFF4D6, #FFE080);
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+  }
+  .product-body { padding: 1rem; }
+  .product-name { font-size: 14px; font-weight: 700; color: var(--brown-dark); margin-bottom: 4px; }
+  .product-desc { font-size: 12px; color: var(--text-sub); line-height: 1.5; margin-bottom: 10px; }
+  .product-price { font-size: 20px; font-weight: 700; color: var(--orange-deep); }
+  .product-price small { font-size: 11px; font-weight: 400; color: var(--text-sub); }
+  .add-btn {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 9px;
+    background: transparent;
+    border: 1px solid var(--orange-mid);
+    border-radius: 8px;
+    color: var(--orange-deep);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .add-btn:hover { background: var(--orange-light); }
+  .add-btn:active { transform: scale(0.98); }
+
+  /* STORY SECTION */
+  .story {
+    background: #FFF8EC;
+    border-top: 1px solid var(--brown-light);
+    border-bottom: 1px solid var(--brown-light);
+  }
+  .story-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .story-visual {
+    background: linear-gradient(135deg, #FFE4A0, #FFCF50);
+    border-radius: var(--radius);
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+  }
+  .story-text .section-heading { margin-bottom: 0.5rem; }
+  .story-text .section-title { margin-bottom: 1rem; }
+  .story-text p { font-size: 14px; color: var(--text-sub); line-height: 1.9; }
+
+  /* CART SIDEBAR */
+  .cart-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 200;
+  }
+  .cart-overlay.open { display: block; }
+  .cart-panel {
+    position: fixed;
+    top: 0; right: -420px;
+    width: 380px;
+    max-width: 100vw;
+    height: 100vh;
+    background: var(--white);
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease;
+    border-left: 1px solid var(--brown-light);
+  }
+  .cart-panel.open { right: 0; }
+  .cart-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--brown-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cart-header h2 { font-size: 16px; font-weight: 700; color: var(--brown-dark); }
+  .close-btn {
+    background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-sub);
+    line-height: 1;
+  }
+  .cart-body { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
+  .cart-empty-msg { text-align: center; color: var(--text-sub); font-size: 14px; padding: 2rem 0; }
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #F0E4CC;
+    gap: 8px;
+  }
+  .cart-item-left { flex: 1; }
+  .cart-item-name { font-size: 13px; font-weight: 600; color: var(--brown-dark); }
+  .cart-item-unit { font-size: 12px; color: var(--text-sub); }
+  .cart-qty { display: flex; align-items: center; gap: 6px; }
+  .qty-btn {
+    width: 26px; height: 26px;
+    border: 1px solid #D0B890;
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--brown-dark);
+    cursor: pointer;
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: inherit;
+  }
+  .qty-btn:hover { background: var(--orange-light); }
+  .qty-num { font-size: 14px; font-weight: 600; min-width: 20px; text-align: center; }
+  .cart-item-price { font-size: 14px; font-weight: 600; color: var(--orange-deep); min-width: 70px; text-align: right; }
+  .cart-footer {
+    padding: 1rem 1.5rem 1.5rem;
+    border-top: 1px solid var(--brown-light);
+  }
+  .cart-total-row {
+    display: flex; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .cart-total-label { font-size: 14px; color: var(--text-sub); }
+  .cart-total-amt { font-size: 22px; font-weight: 700; color: var(--orange-deep); }
+  .checkout-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: var(--orange-mid);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .checkout-btn:hover { background: var(--orange-deep); }
+  .checkout-btn:disabled { background: #D3C5A5; cursor: not-allowed; }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--brown-dark);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 24px;
+    font-size: 13px;
+    opacity: 0;
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+    z-index: 999;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* FOOTER */
+  footer {
+    background: var(--brown-dark);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 2rem;
+    font-size: 13px;
+  }
+  footer strong { color: white; display: block; margin-bottom: 4px; font-size: 15px; }
+
+  @media (max-width: 600px) {
+    .story-inner { grid-template-columns: 1fr; }
+    .story-visual { height: 150px; }
+    .features { flex-wrap: wrap; }
+    .feature { flex: 0 0 50%; border-bottom: 1px solid rgba(255,255,255,0.12); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🍊 <span>みかん</span>ジャム</div>
+  <button class="cart-icon-btn" onclick="openCart()">
+    🛒 カート <span id="cart-header-count">0</span>
+  </button>
+</header>
+
+<section class="hero">
+  <span class="hero-emoji">🍊</span>
+  <div class="hero-badge">手作り・無添加・愛媛県産</div>
+  <h1>太陽の恵み<br>みかんジャム</h1>
+  <p>完熟みかんをたっぷり使った、自然の甘さあふれるジャム。<br>毎朝のトーストに、ヨーグルトに。</p>
+  <a href="#products" class="hero-scroll">商品を見る ↓</a>
+</section>
+
+<div class="features">
+  <div class="feature"><span class="feature-icon">🌿</span><div class="feature-label">保存料・着色料 不使用</div></div>
+  <div class="feature"><span class="feature-icon">📦</span><div class="feature-label">2〜3営業日で発送</div></div>
+  <div class="feature"><span class="feature-icon">🎁</span><div class="feature-label">ギフト包装 承ります</div></div>
+  <div class="feature"><span class="feature-icon">🏡</span><div class="feature-label">農家直送</div></div>
+</div>
+
+<section class="section" id="products">
+  <div class="section-heading">PRODUCTS</div>
+  <div class="section-title">商品一覧</div>
+  <div class="products-grid" id="products-grid"></div>
+</section>
+
+<section class="story">
+  <div class="story-inner">
+    <div class="story-visual">🍊</div>
+    <div class="story-text">
+      <div class="section-heading">OUR STORY</div>
+      <div class="section-title">みかん農家から<br>直接お届けします</div>
+      <p>愛媛県の温暖な気候で育った完熟みかんを、収穫直後に丁寧にジャムへ。農薬を極力使わず、素材の味を最大限に活かした手作りの一品です。砂糖はみかんの重量の40%以下に抑え、みかん本来の甘酸っぱさをそのままに。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>太陽の恵み みかんジャム農園</strong>
+  愛媛県 ○○市 ○○町 1-2-3 ／ お問い合わせ: info@mikan-jam.example.com
+</footer>
+
+<!-- CART PANEL -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-header">
+    <h2>🛒 カート</h2>
+    <button class="close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cart-body">
+    <p class="cart-empty-msg">商品をカートに追加してください</p>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span class="cart-total-label">合計（税込）</span>
+      <span class="cart-total-amt" id="cart-total-amt">¥0</span>
+    </div>
+    <button class="checkout-btn" id="checkout-btn" disabled onclick="alert('ご購入ありがとうございます！\nこのデモでは決済機能は実装されていません。')">ご購入へ進む</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const products = [
+  { id: 1, name: "みかんジャム（小）", desc: "140g。お試しサイズ。一人暮らしにも", price: 680, emoji: "🫙" },
+  { id: 2, name: "みかんジャム（中）", desc: "250g。定番サイズ。一番人気", price: 1080, emoji: "🍯" },
+  { id: 3, name: "みかんジャム（大）", desc: "400g。たっぷり家族で楽しめる", price: 1580, emoji: "🏺" },
+  { id: 4, name: "3本セット（中）", desc: "ご自宅用やギフトに最適", price: 2980, emoji: "🎀" },
+];
+
+let cart = {};
+
+function renderProducts() {
+  document.getElementById('products-grid').innerHTML = products.map(p => `
+    <div class="product-card">
+      <div class="product-thumb">${p.emoji}</div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-price">¥${p.price.toLocaleString()}<small>（税込）</small></div>
+        <button class="add-btn" onclick="addToCart(${p.id})">+ カートに追加</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addToCart(id) {
+  cart[id] = (cart[id] || 0) + 1;
+  updateCartUI();
+  const p = products.find(x => x.id === id);
+  showToast(p.name + ' をカートに追加しました');
+}
+
+function changeQty(id, d) {
+  cart[id] = (cart[id] || 0) + d;
+  if (cart[id] <= 0) delete cart[id];
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const items = Object.entries(cart);
+  const count = items.reduce((s,[,q]) => s+q, 0);
+  const total = items.reduce((s,[id,q]) => {
+    return s + products.find(x=>x.id==id).price * q;
+  }, 0);
+
+  document.getElementById('cart-header-count').textContent = count;
+  document.getElementById('cart-total-amt').textContent = '¥' + total.toLocaleString();
+  document.getElementById('checkout-btn').disabled = count === 0;
+
+  const body = document.getElementById('cart-body');
+  if (items.length === 0) {
+    body.innerHTML = '<p class="cart-empty-msg">商品をカートに追加してください</p>';
+    return;
+  }
+  body.innerHTML = items.map(([id, qty]) => {
+    const p = products.find(x=>x.id==id);
+    return `<div class="cart-item">
+      <div class="cart-item-left">
+        <div class="cart-item-name">${p.name}</div>
+        <div class="cart-item-unit">¥${p.price.toLocaleString()} × ${qty}</div>
+      </div>
+      <div class="cart-qty">
+        <button class="qty-btn" onclick="changeQty(${id},-1)">−</button>
+        <span class="qty-num">${qty}</span>
+        <button class="qty-btn" onclick="changeQty(${id},1)">＋</button>
+      </div>
+      <div class="cart-item-price">¥${(p.price*qty).toLocaleString()}</div>
+    </div>`;
+  }).join('');
+}
+
+function openCart() {
+  document.getElementById('cart-overlay').classList.add('open');
+  document.getElementById('cart-panel').classList.add('open');
+}
+function closeCart() {
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('cart-panel').classList.remove('open');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+renderProducts();
+</script>
+</body>
+</html>
