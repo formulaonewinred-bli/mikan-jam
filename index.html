@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>みかんジャム | 手作りの温かさをお届けします</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --cream: #FDFAF4; --orange: #E8752A; --orange-light: #F4A45A; --orange-pale: #FDE8D4; --green: #3D5A3E; --brown: #2C1810; --brown-light: #6B4423; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background-color: var(--cream); color: var(--brown); line-height: 1.7; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; background: rgba(253,250,244,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,168,130,0.25); }
+    .nav-logo { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; font-weight: 700; color: var(--orange); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--brown-light); font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--orange); }
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding-top: 4rem; overflow: hidden; }
+    .hero-text { padding: 4rem 3rem 4rem 5rem; }
+    .hero-image { height: 100vh; position: relative; overflow: hidden; }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--cream) 0%, transparent 30%); }
+    .hero-eyebrow { display: inline-block; font-size: 0.75rem; letter-spacing: 0.25em; color: var(--orange); font-weight: 500; margin-bottom: 1.5rem; text-transform: uppercase; }
+    .hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(2rem,4vw,3.2rem); font-weight: 700; line-height: 1.4; color: var(--brown); margin-bottom: 1.5rem; }
+    .hero h1 span { color: var(--orange); }
+    .hero-desc { font-size: 0.95rem; color: var(--brown-light); margin-bottom: 2.5rem; line-height: 2; }
+    .btn-primary { display: inline-block; background: var(--orange); color: #fff; padding: 0.9rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: background 0.2s, transform 0.15s; border: none; cursor: pointer; font-family: 'Noto Sans JP', sans-serif; }
+    .btn-primary:hover { background: var(--brown-light); transform: translateY(-2px); }
+    section { padding: 6rem 1.5rem; }
+    .section-label { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--orange); text-transform: uppercase; font-weight: 500; margin-bottom: 0.75rem; }
+    .section-title { font-family: 'Noto Serif JP', serif; font-size: clamp(1.6rem,4vw,2.4rem); font-weight: 700; color: var(--brown); margin-bottom: 1.5rem; line-height: 1.4; }
+    .products { background: #fff; }
+    .products-inner { max-width: 1060px; margin: 0 auto; text-align: center; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 2rem; margin-top: 3rem; }
+    .product-card { background: var(--cream); border-radius: 20px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(232,117,42,0.15); }
+    .product-img { width: 100%; height: 200px; object-fit: cover; }
+    .product-body { padding: 1.5rem; }
+    .product-card h3 { font-family: 'Noto Serif JP', serif; font-size: 1.05rem; font-weight: 700; color: var(--brown); margin-bottom: 0.5rem; }
+    .product-card p { font-size: 0.85rem; color: var(--brown-light); line-height: 1.8; }
+    .product-price { margin-top: 1rem; font-size: 1rem; font-weight: 700; color: var(--orange); }
+    .commitment-inner { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .commitment-image { border-radius: 24px; overflow: hidden; height: 420px; }
+    .commitment-image img { width: 100%; height: 100%; object-fit: cover; }
+    .commitment-list { display: flex; flex-direction: column; gap: 2rem; }
+    .commitment-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .commitment-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .commitment-item h4 { font-family: 'Noto Serif JP', serif; font-size: 1rem; font-weight: 700; color: var(--brown); margin-bottom: 0.3rem; }
+    .commitment-item p { font-size: 0.875rem; color: var(--brown-light); line-height: 1.8; }
+    .banner { position: relative; overflow: hidden; height: 320px; display: flex; align-items: center; justify-content: center; }
+    .banner-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.38); }
+    .banner-text { position: relative; z-index: 1; text-align: center; color: #fff; }
+    .banner-text p { font-family: 'Noto Serif JP', serif; font-size: clamp(1rem,3vw,1.5rem); font-weight: 600; line-height: 2; letter-spacing: 0.06em; }
+    .order { background: var(--orange-pale); }
+    .order-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .order-form { margin-top: 2.5rem; text-align: left; display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.875rem; font-weight: 500; color: var(--brown); }
+    .required-badge { display: inline-block; background: var(--orange); color: #fff; font-size: 0.65rem; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.4rem; vertical-align: middle; }
+    .form-group input, .form-group select, .form-group textarea { padding: 0.75rem 1rem; border: 1.5px solid rgba(200,168,130,0.5); border-radius: 10px; background: #fff; font-family: 'Noto Sans JP', sans-serif; font-size: 0.95rem; color: var(--brown); transition: border-color 0.2s; outline: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--orange); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit { margin-top: 0.5rem; text-align: center; }
+    .form-note { font-size: 0.8rem; color: var(--brown-light); margin-top: 1rem; text-align: center; }
+    .success-msg { display: none; background: var(--green); color: #fff; padding: 1.25rem 1.5rem; border-radius: 12px; text-align: center; font-size: 0.95rem; margin-top: 1rem; }
+    footer { background: var(--brown); color: rgba(255,255,255,0.7); text-align: center; padding: 2.5rem 1.5rem; }
+    footer .footer-logo { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; font-weight: 700; color: var(--orange-light); margin-bottom: 0.75rem; }
+    footer p { font-size: 0.8rem; }
+    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; } .hero-text { padding: 6rem 1.5rem 3rem; } .hero-image { height: 50vw; } .commitment-inner { grid-template-columns: 1fr; } .commitment-image { height: 260px; } nav { padding: 1rem 1.25rem; } .nav-links { gap: 1.2rem; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="#" class="nav-logo">🍊 みかんジャム</a>
+  <ul class="nav-links"><li><a href="#products">商品</a></li><li><a href="#commitment">こだわり</a></li><li><a href="#order">ご注文</a></li></ul>
+</nav>
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-eyebrow">Handmade Mikan Jam</span>
+    <h1>みかんの<span>甘さ</span>と<br>温もりを<br>ひと瓶に。</h1>
+    <p class="hero-desc">愛媛産の完熟みかんをたっぷり使い、<br>ひとつひとつ丁寧に手作りしたジャムです。<br>添加物不使用、素材本来の味をお届けします。</p>
+    <a href="#order" class="btn-primary">ご注文はこちら</a>
+  </div>
+  <div class="hero-image"><img src="https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=900&auto=format&fit=crop" alt="みかんジャムのイメージ"></div>
+</section>
+<section class="products" id="products">
+  <div class="products-inner">
+    <p class="section-label">Products</p>
+    <h2 class="section-title">商品ラインナップ</h2>
+    <p style="color:var(--brown-light);font-size:0.9rem;">季節によってフレーバーが変わります。旬の美味しさをお楽しみください。</p>
+    <div class="products-grid">
+      <div class="product-card"><img class="product-img" src="https://images.unsplash.com/photo-1563636619-e9143da7973b?w=600&auto=format&fit=crop" alt="定番みかんジャム"><div class="product-body"><h3>定番みかんジャム</h3><p>愛媛産温州みかんの甘みをそのままに。パンはもちろん、ヨーグルトにも。</p><p class="product-price">¥850 / 140g</p></div></div>
+      <div class="product-card"><img class="product-img" src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=600&auto=format&fit=crop" alt="みかん×はちみつジャム"><div class="product-body"><h3>みかん × はちみつジャム</h3><p>国産はちみつと合わせた、まろやかな甘さ。紅茶に溶かすのもおすすめです。</p><p class="product-price">¥980 / 140g</p></div></div>
+      <div class="product-card"><img class="product-img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&auto=format&fit=crop" alt="みかん×緑茶ジャム"><div class="product-body"><h3>みかん × 緑茶ジャム</h3><p>宇治抹茶とみかんの意外な組み合わせ。ギフトにも大変人気です。</p><p class="product-price">¥1,050 / 140g</p></div></div>
+    </div>
+  </div>
+</section>
+<div class="banner">
+  <img class="banner-bg" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1400&auto=format&fit=crop" alt="背景">
+  <div class="banner-text"><p>「添加物は一切使いません。<br>みかんと砂糖と、少しの愛情だけ。」</p></div>
+</div>
+<section id="commitment">
+  <div class="commitment-inner">
+    <div class="commitment-image"><img src="https://images.unsplash.com/photo-1603048719539-9ecb4aa395e3?w=800&auto=format&fit=crop" alt="手作りジャムのこだわり"></div>
+    <div>
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">わたしたちの<br>こだわり</h2>
+      <div class="commitment-list">
+        <div class="commitment-item"><span class="commitment-icon">🍊</span><div><h4>産地直送の完熟みかん</h4><p>愛媛県の農家さんから直接仕入れた、完熟みかんのみを使用。旬の時期に収穫したものだけを使います。</p></div></div>
+        <div class="commitment-item"><span class="commitment-icon">✋</span><div><h4>すべて手作り</h4><p>機械には頼らず、少量ずつ丁寧に手作り。製造日は瓶に必ず記載しています。</p></div></div>
+        <div class="commitment-item"><span class="commitment-icon">🌱</span><div><h4>添加物不使用</h4><p>保存料・着色料・増粘剤など一切使用しておりません。原材料はみかん・砂糖のみです。</p></div></div>
+        <div class="commitment-item"><span class="commitment-icon">🎁</span><div><h4>ギフトにも最適</h4><p>ラッピング・のし対応も可能です。贈り物やお返しにご利用いただけます。</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="order" id="order">
+  <div class="order-inner">
+    <p class="section-label">Order</p>
+    <h2 class="section-title">ご注文・お問い合わせ</h2>
+    <p style="color:var(--brown-light);font-size:0.875rem;">フォームよりご連絡ください。2営業日以内にメールにてご返信いたします。</p>
+    <div class="order-form" id="orderForm">
+      <div class="form-group"><label>お名前<span class="required-badge">必須</span></label><input type="text" id="name" placeholder="山田 花子" required></div>
+      <div class="form-group"><label>メールアドレス<span class="required-badge">必須</span></label><input type="email" id="email" placeholder="example@email.com" required></div>
+      <div class="form-group"><label>ご希望の商品</label><select id="product"><option value="">選択してください</option><option>定番みかんジャム (¥850)</option><option>みかん × はちみつジャム (¥980)</option><option>みかん × 緑茶ジャム (¥1,050)</option><option>詰め合わせセット / その他</option></select></div>
+      <div class="form-group"><label>数量・ご要望・ご質問</label><textarea id="message" placeholder="数量や配送先、ギフト包装のご希望などをお書きください。"></textarea></div>
+      <div class="form-submit"><button type="button" class="btn-primary" onclick="handleSubmit()">送信する</button></div>
+      <p class="form-note">※ 送信いただいた情報はご注文・お問い合わせ対応のみに使用します。</p>
+    </div>
+    <div class="success-msg" id="successMsg">✅ 送信が完了しました！<br>2営業日以内にご連絡いたします。</div>
+  </div>
+</section>
+<footer>
+  <div class="footer-logo">🍊 みかんジャム</div>
+  <p>© 2025 みかんジャム. All rights reserved.</p>
+</footer>
+<script>
+  function handleSubmit() {
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    if (!name || !email) { alert('お名前とメールアドレスは必須です。'); return; }
+    document.getElementById('orderForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+</script>
+</body>
+</html>
