@@ -17,9 +17,11 @@
     .nav-links a:hover { color: var(--orange); }
     .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding-top: 4rem; overflow: hidden; }
     .hero-text { padding: 4rem 3rem 4rem 5rem; }
-    .hero-image { height: 100vh; position: relative; overflow: hidden; }
-    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--cream) 0%, transparent 30%); }
+    .hero-image { height: 100vh; position: relative; overflow: hidden; display: grid; grid-template-rows: 1fr 1fr; gap: 4px; }
+    .hero-image .img-wrap { position: relative; overflow: hidden; }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-image .img-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.6rem 1rem; background: linear-gradient(to top, rgba(44,24,16,0.65), transparent); color: #fff; font-size: 0.75rem; letter-spacing: 0.05em; }
+    .hero-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, var(--cream) 0%, transparent 22%); pointer-events: none; }
     .hero-eyebrow { display: inline-block; font-size: 0.75rem; letter-spacing: 0.2em; color: var(--orange); font-weight: 500; margin-bottom: 1.5rem; text-transform: uppercase; }
     .hero h1 { font-family: 'Noto Serif JP', serif; font-size: clamp(1.9rem,3.6vw,3rem); font-weight: 700; line-height: 1.5; color: var(--brown); margin-bottom: 1.5rem; }
     .hero h1 span { color: var(--orange); }
@@ -66,7 +68,7 @@
     footer { background: var(--brown); color: rgba(255,255,255,0.7); text-align: center; padding: 2.5rem 1.5rem; }
     footer .footer-logo { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; font-weight: 700; color: var(--orange-light); margin-bottom: 0.75rem; }
     footer p { font-size: 0.8rem; }
-    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; } .hero-text { padding: 6rem 1.5rem 3rem; } .hero-image { height: 50vw; } .commitment-inner { grid-template-columns: 1fr; } .commitment-image { height: 260px; } nav { padding: 1rem 1.25rem; } .nav-links { gap: 1.2rem; } }
+    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; } .hero-text { padding: 6rem 1.5rem 3rem; } .hero-image { height: 60vw; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; } .hero-image::after { background: linear-gradient(to bottom, var(--cream) 0%, transparent 25%); } .commitment-inner { grid-template-columns: 1fr; } .commitment-image { height: 260px; } nav { padding: 1rem 1.25rem; } .nav-links { gap: 1.2rem; } }
   </style>
 </head>
 <body>
@@ -88,7 +90,16 @@
     </p>
     <a href="#order" class="btn-primary">ご注文はこちら</a>
   </div>
-  <div class="hero-image"><img src="https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=900&auto=format&fit=crop" alt="磯部みかんジャムのイメージ"></div>
+  <div class="hero-image">
+    <div class="img-wrap">
+      <img src="https://images.unsplash.com/photo-1528582654826-585a71fcf7f4?w=900&auto=format&fit=crop" alt="庭先でみかんを収穫するおばちゃん">
+      <div class="img-caption">庭先のみかんを、ひとつずつ収穫</div>
+    </div>
+    <div class="img-wrap">
+      <img src="https://images.unsplash.com/photo-1636647511603-f46efb36c327?w=900&auto=format&fit=crop" alt="鍋でジャムを混ぜるおばちゃん">
+      <div class="img-caption">大きな鍋で、じっくり煮込む</div>
+    </div>
+  </div>
 </section>
 <section class="products" id="products">
   <div class="products-inner">
