@@ -2,18 +2,19 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>磯部みかんジャム | 千葉の海風とおばちゃんの手仕事</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root { --cream: #FDFAF4; --orange: #E8752A; --orange-light: #F4A45A; --orange-pale: #FDE8D4; --green: #3D5A3E; --brown: #2C1810; --brown-light: #6B4423; --sea: #2E6E8E; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Noto Sans JP', sans-serif; background-color: var(--cream); color: var(--brown); line-height: 1.7; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body { font-family: 'Noto Sans JP', sans-serif; background-color: var(--cream); color: var(--brown); line-height: 1.7; overflow-x: hidden; }
+    img { max-width: 100%; }
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2.5rem; background: rgba(253,250,244,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,168,130,0.25); }
-    .nav-logo { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; font-weight: 700; color: var(--orange); text-decoration: none; }
+    .nav-logo { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; font-weight: 700; color: var(--orange); text-decoration: none; white-space: nowrap; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--brown-light); font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a { text-decoration: none; color: var(--brown-light); font-size: 0.875rem; font-weight: 500; transition: color 0.2s; white-space: nowrap; }
     .nav-links a:hover { color: var(--orange); }
     .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding-top: 4rem; overflow: hidden; }
     .hero-text { padding: 4rem 3rem 4rem 5rem; }
@@ -54,7 +55,7 @@
     .commitment-item p { font-size: 0.875rem; color: var(--brown-light); line-height: 1.8; }
     .banner { position: relative; overflow: hidden; height: 320px; display: flex; align-items: center; justify-content: center; }
     .banner-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.38); }
-    .banner-text { position: relative; z-index: 1; text-align: center; color: #fff; }
+    .banner-text { position: relative; z-index: 1; text-align: center; color: #fff; padding: 0 1.5rem; }
     .banner-text p { font-family: 'Noto Serif JP', serif; font-size: clamp(1rem,3vw,1.5rem); font-weight: 600; line-height: 2; letter-spacing: 0.06em; }
     .order { background: var(--orange-pale); }
     .order-inner { max-width: 640px; margin: 0 auto; text-align: center; }
@@ -62,7 +63,7 @@
     .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
     .form-group label { font-size: 0.875rem; font-weight: 500; color: var(--brown); }
     .required-badge { display: inline-block; background: var(--orange); color: #fff; font-size: 0.65rem; padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.4rem; vertical-align: middle; }
-    .form-group input, .form-group select, .form-group textarea { padding: 0.75rem 1rem; border: 1.5px solid rgba(200,168,130,0.5); border-radius: 10px; background: #fff; font-family: 'Noto Sans JP', sans-serif; font-size: 0.95rem; color: var(--brown); transition: border-color 0.2s; outline: none; }
+    .form-group input, .form-group select, .form-group textarea { padding: 0.75rem 1rem; border: 1.5px solid rgba(200,168,130,0.5); border-radius: 10px; background: #fff; font-family: 'Noto Sans JP', sans-serif; font-size: 16px; color: var(--brown); transition: border-color 0.2s; outline: none; width: 100%; }
     .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--orange); }
     .form-group textarea { resize: vertical; min-height: 120px; }
     .form-submit { margin-top: 0.5rem; text-align: center; }
@@ -71,7 +72,52 @@
     footer { background: var(--brown); color: rgba(255,255,255,0.7); text-align: center; padding: 2.5rem 1.5rem; }
     footer .footer-logo { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; font-weight: 700; color: var(--orange-light); margin-bottom: 0.75rem; }
     footer p { font-size: 0.8rem; }
-    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; } .hero-text { padding: 6rem 1.5rem 3rem; } .hero-image { height: 60vw; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; } .hero-image::after { background: linear-gradient(to bottom, var(--cream) 0%, transparent 25%); } .commitment-inner { grid-template-columns: 1fr; } .commitment-image { height: 260px; } nav { padding: 1rem 1.25rem; } .nav-links { gap: 1.2rem; } }
+
+    /* ── タブレット ── */
+    @media (max-width: 900px) {
+      .hero-text { padding: 5rem 2.5rem 3rem 2.5rem; }
+    }
+
+    /* ── スマートフォン ── */
+    @media (max-width: 768px) {
+      nav { padding: 0.9rem 1.25rem; }
+      .nav-logo { font-size: 1rem; }
+      .nav-links { gap: 0.9rem; }
+      .nav-links a { font-size: 0.78rem; }
+
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 3.5rem; }
+      .hero-text { padding: 2.5rem 1.5rem 2rem; order: 2; }
+      .hero-image { height: 62vw; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; order: 1; }
+      .hero-image::after { background: linear-gradient(to bottom, var(--cream) 0%, transparent 0%, transparent 100%); opacity: 0; }
+      .hero-image .img-caption { font-size: 0.6rem; padding: 0.4rem 0.5rem; }
+      .hero h1 { font-size: clamp(1.5rem, 6vw, 2rem); line-height: 1.5; }
+      .hero-desc { font-size: 0.85rem; line-height: 1.9; margin-bottom: 2rem; }
+      .hero-eyebrow { font-size: 0.68rem; margin-bottom: 1rem; }
+      .btn-primary { width: 100%; text-align: center; padding: 1rem 1.5rem; }
+
+      section { padding: 3.5rem 1.25rem; }
+      .section-title { font-size: clamp(1.35rem, 6vw, 1.8rem); }
+
+      .products-grid { grid-template-columns: 1fr; gap: 1.25rem; max-width: 100%; }
+      .product-img { height: 180px; }
+      .product-price { font-size: 1.4rem; }
+
+      .commitment-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .commitment-image { height: 220px; order: 1; }
+      .commitment-list { order: 2; }
+
+      .banner { height: 220px; }
+      .banner-text p { font-size: 0.95rem; line-height: 1.8; }
+
+      .order-form { gap: 1rem; }
+      .form-note { font-size: 0.75rem; }
+    }
+
+    @media (max-width: 380px) {
+      .hero-text { padding: 2rem 1.1rem 1.5rem; }
+      .nav-links { gap: 0.6rem; }
+      .nav-links a { font-size: 0.72rem; }
+    }
   </style>
 </head>
 <body>
